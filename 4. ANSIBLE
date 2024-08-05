@@ -135,12 +135,22 @@ ansible all -m yum -a "name=git state=present"
 ansible all -m yum -a "name=docker state=present"  (present=install)
 ansible all -m yum -a "name=docker state=present"  (absent=uninstall)
 ansible all -m yum -a "name=docker state=latest"   (latest=update)
-ansible all -m service -a "name=httpd state=started"
-ansible all -m service -a "name=httpd state=stopped"
-ansible all -m user -a "name=rajinikanth state=present"
+ansible all -m service -a "name=httpd state=started" (to start the service)
+ansible all -m service -a "name=httpd state=stopped" (to stop the service)
+ansible all -m user -a "name=rajinikanth state=present" (to create a user )
 ansible all -m user -a "name=rajinikanth state=absent"
-ansible all -m copy -a "src=app.yml dest=/root"
+ansible all -m copy -a "src=app.yml dest=/root" (to copy the files)
 ansible all -a "ls /root"
+
+app.yml 
+application.yaml file is a text file which contains properties of application.
+example
+---
+name: abc
+webserver: 192.16.100.1:80
+appserver: 192.16.100.1:8080
+dbserver: 192.16.100.1:5432
+lb_url: www.xyz.com
 
 PLAYBOOKS:
 playbook is a collection of modules.
@@ -293,6 +303,9 @@ sed -i 's/install/remove/g' raham.yml
 ansible-playbook raham.yml
 
 VARS:
+why to use varibles?
+if we have multiple values to change instead of changing values one by one if we can change on vaibles entire all values will change.
+ex: if we are having a server 10 times instead of changing the server 10 times we can change varibles.
 
 STATIC VARS: vars which will define inside playbook.
 DYNAMIC VARS: vars which are not define inside playbook.
@@ -383,7 +396,7 @@ ansible all -a "yum remove git* maven* docker* tree* -y"
 sed -i "s/present/absent/g" raham.yml
  multi var: ansible-playbook raham.yml --extra-vars "d=tree e=java-1.8.0-openjdk"
 
-LOOPS:
+LOOPS: instead of witting multiple time we can use loops and reduce the code
 
 - hosts: all
   tasks:
@@ -413,7 +426,9 @@ LOOPS:
         - nikitha
         - sadekaa
 
-
+to list all the worker nodes we are working with we can see in
+.ssh/known_hosts(it will list all the )
+ansible all --list-host{it will lis }
 TROUBLESHOOTING:
 ansible all -m setup | grep -i cpus
 ansible all -m setup | grep -i mem
